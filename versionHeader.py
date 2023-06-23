@@ -2,13 +2,11 @@ import json
 from c.print import print
 
 def printHeader():
-    from constants import BUILD_DATE
     import yt_dlp
     import sys
 
     versionObj = {
         'ezytdl-pybridge': {
-            'Built': BUILD_DATE,
             'Python Version': sys.version.split(' ')[0],
             'Python Implementation': sys.implementation.name,
         },
