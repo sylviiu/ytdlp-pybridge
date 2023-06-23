@@ -4,11 +4,10 @@ run-name: ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
 on:
   workflow_call:
     inputs:
-      upload_url:
-        description: 'Upload URL'
+      tag:
+        description: 'Release Tag'
         type: string
         required: true
-        default: ${{ github.event.client_payload.upload_url }}
 
 jobs:
   linux-dist:
@@ -33,12 +32,11 @@ jobs:
         - name: Build app
           run: |
             pyinstaller bridge.py --workpath "dist/build" --specpath "dist/build" -y --name "ezytdl-ytdlp-bridge" --clean --noconfirm --onefile
-  
+
         - name: Upload files to release_id
-          uses: actions/upload-release-asset@v1
+          uses: svenstaro/upload-release-action@v2
           with:
-            upload_url: ${{ inputs.upload_url }}
-            asset_path: ./dist/ezytdl-ytdlp-bridge
+            tag: ${{ inputs.tag }}
+            file: ./dist/ezytdl-ytdlp-bridge
             asset_name: ezytdl-ytdlp-bridge-linux
-            asset_content_type: application/octet-stream
   
