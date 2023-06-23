@@ -32,7 +32,7 @@ jobs:
         - name: Build app
           run: |
             python constants.py
-            pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm --onefile
+            pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-linux" --clean --noconfirm --onefile
 
         - name: Upload files to release_id
           uses: xresloader/upload-to-github-release@main
