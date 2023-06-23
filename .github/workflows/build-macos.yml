@@ -35,6 +35,8 @@ jobs:
 
       - name: Upload files to release_id
         uses: xresloader/upload-to-github-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_id: ${{ inputs.release_id }}
           file: ./dist/ezytdl-ytdlp-bridge-darwin*
