@@ -1,0 +1,43 @@
+name: ezytdl yt-dlp bridge distributable build (macos)
+run-name: ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
+
+on:
+  workflow_call:
+    inputs:
+      upload_url:
+        description: 'Upload URL'
+        type: string
+        required: true
+        default: ${{ github.event.client_payload.upload_url }}
+
+jobs:
+  macos-dist:
+    runs-on: macos-latest
+
+    permissions: write-all
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      
+      - name: Install python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install pybridge deps
+        run: |
+          pip install -r requirements.txt
+
+      - name: Build app
+        run: |
+          pyinstaller bridge.py --workpath "dist/build" --specpath "dist/build" -y --name "ezytdl-ytdlp-bridge" --clean --noconfirm --onefile
+
+      - name: Upload files to release_id
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.inputs.upload_url }}
+          asset_path: ./dist/eztdl-ytdlp-bridge.exe
+          asset_name: ezytdl-ytdlp-bridge-darwin
+          asset_content_type: application/octet-stream
