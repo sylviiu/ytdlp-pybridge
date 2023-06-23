@@ -1,4 +1,4 @@
-name: ezytdl yt-dlp bridge distributable build
+name: ezytdl pybridge dist
 run-name: ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
 
 on:

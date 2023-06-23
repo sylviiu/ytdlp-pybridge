@@ -1,4 +1,4 @@
-name: ezytdl yt-dlp bridge distributable build (macos)
+name: ezytdl/macos yt-dlp bridge distributable build (macos)
 run-name: ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
 
 on:
