@@ -38,6 +38,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.inputs.upload_url }}
-          asset_path: ./dist/eztdl-ytdlp-bridge.exe
+          asset_path: ./dist/eztdl-ytdlp-bridge
           asset_name: ezytdl-ytdlp-bridge-darwin
           asset_content_type: application/octet-stream
