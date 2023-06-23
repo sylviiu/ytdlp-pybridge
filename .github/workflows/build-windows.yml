@@ -38,6 +38,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ inputs.upload_url }}
-          asset_path: ./dist/eztdl-ytdlp-bridge.exe
+          asset_path: ./dist/ezytdl-ytdlp-bridge.exe
           asset_name: ezytdl-ytdlp-bridge-win32.exe
           asset_content_type: application/octet-stream
