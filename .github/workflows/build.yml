@@ -78,7 +78,7 @@ jobs:
     permissions: write-all
     uses: ezytdl/pybridge/.github/workflows/build-linux.yml@main
     with:
-      tag: ${{ github.run_number }}
+      release_id: ${{ needs.release_info.outputs.release_id }}
       
   macos-dist:
     needs: release_info
@@ -86,7 +86,7 @@ jobs:
     permissions: write-all
     uses: ezytdl/pybridge/.github/workflows/build-macos.yml@main
     with:
-      tag: ${{ github.run_number }}
+      release_id: ${{ needs.release_info.outputs.release_id }}
       
   windows-dist:
     needs: release_info
@@ -94,7 +94,7 @@ jobs:
     permissions: write-all
     uses: ezytdl/pybridge/.github/workflows/build-windows.yml@main
     with:
-      tag: ${{ github.run_number }}
+      release_id: ${{ needs.release_info.outputs.release_id }}
 
   release:
     needs: [linux-dist, macos-dist, windows-dist, release_info]
