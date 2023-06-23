@@ -31,7 +31,7 @@ jobs:
 
       - name: Build app
         run: |
-          pyinstaller bridge.py --workpath "dist/build" --specpath "dist/build" -y --name "ezytdl-ytdlp-bridge-win32" --clean --noconfirm --onefile
+          pyinstaller bridge.py --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm --onefile
 
       - name: Upload files to release_id
         uses: xresloader/upload-to-github-release@main
@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_id: ${{ inputs.release_id }}
-          file: ./dist/ezytdl-ytdlp-bridge-win32*
+          file: ./dist/bridge-win32*
           overwrite: true
           verbose: true
           draft: true
