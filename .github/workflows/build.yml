@@ -71,12 +71,26 @@ jobs:
           bodyFile: ${{ env.BODY_PATH }}
           omitBody: false
           omitBodyDuringUpdate: true
-
+          
   linux-dist:
+    needs: release_info
     name: "Build Linux distributable"
-    uses: ./build-linux.yml
+    uses: ezytdl/pybridge/.github/workflows/build-linux.yml@main
     with:
-      release_id: ${{ needs.release_info.outputs.release_id }}
+      upload_url: ${{ needs.release_info.outputs.upload_url }}
+      
+  macos-dist:
+    needs: release_info
+    name: "Build Linux distributable"
+    uses: ezytdl/pybridge/.github/workflows/build-macos.yml@main
+    with:
+      upload_url: ${{ needs.release_info.outputs.upload_url }}
+      
+  windows-dist:
+    needs: release_info
+    name: "Build Linux distributable"
+    uses: ezytdl/pybridge/.github/workflows/build-windows.yml@main
+    with:
       upload_url: ${{ needs.release_info.outputs.upload_url }}
 
   release:
