@@ -65,7 +65,7 @@ module.exports.bridgeProc.stdout.on(`data`, data => {
 
 Everything is handled through `stdin`. Just input a JSON string with the following format:
 
-```json
+```jsonc
 {
     "id": "unique id (can be auto-generated -- this is how you can identify the output of a request)",
     "args": ["--args", "for", "yt-dlp"]
@@ -74,7 +74,7 @@ Everything is handled through `stdin`. Just input a JSON string with the followi
 
 ...and when a request starts a task, it will give you the following output:
 
-```json
+```jsonc
 {
     "id": "unique id (as previously added)",
     "type": "info | warning | error | infodump", // info = yt-dlp's stdout, warning & error = yt-dlp's stderr, infodump = yt-dlp's dumped info json on every request it provides one
@@ -84,7 +84,7 @@ Everything is handled through `stdin`. Just input a JSON string with the followi
 
 ...and when a task completes, it will give you the following output:
 
-```json
+```jsonc
 {
     "id": "unique id (as previously added)",
     "type": "complete",
@@ -94,7 +94,7 @@ Everything is handled through `stdin`. Just input a JSON string with the followi
 
 If you want to kill a process, you can input the following:
 
-```json
+```jsonc
 {
     "id": "unique id (as previously added)",
     "type": "kill"
