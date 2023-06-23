@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check latest commit
     outputs:
-      should_run: ${{ github.event_name == 'workflow_dispatch' || env.should_run }}
+      should_run: ${{ env.should_run }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
