@@ -19,10 +19,7 @@ from c.print import print
 
 import versionHeader
 
-if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-    versionHeader.printHeader()
-else:
-    print("Running in development mode. Versions will not be printed.", flush=True)
+versionHeader.printHeader()
 
 print("Creating bridge...")
 
