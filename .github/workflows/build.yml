@@ -74,7 +74,7 @@ jobs:
           
   linux-dist:
     needs: release_info
-    name: "Build Linux distributable"
+    name: "Linux distributable"
     permissions: write-all
     uses: ezytdl/pybridge/.github/workflows/build-linux.yml@main
     with:
@@ -82,7 +82,7 @@ jobs:
       
   macos-dist:
     needs: release_info
-    name: "Build Linux distributable"
+    name: "MacOS distributable"
     permissions: write-all
     uses: ezytdl/pybridge/.github/workflows/build-macos.yml@main
     with:
@@ -90,7 +90,7 @@ jobs:
       
   windows-dist:
     needs: release_info
-    name: "Build Linux distributable"
+    name: "Windows distributable"
     permissions: write-all
     uses: ezytdl/pybridge/.github/workflows/build-windows.yml@main
     with:
