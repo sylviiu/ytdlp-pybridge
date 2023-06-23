@@ -1,0 +1,6 @@
+.venv/
+dist/
+pybridge/
+constants.py
+__pycache__/
+*.spec
