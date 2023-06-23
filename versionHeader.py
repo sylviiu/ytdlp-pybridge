@@ -1,7 +1,14 @@
 import json
+import sys
+import os
 from c.print import print
 
-def printHeader():
+if getattr(sys, 'frozen', False):
+    bundle_dir = sys._MEIPASS
+else:
+    bundle_dir = os.path.dirname(os.path.abspath(__file__))
+
+def printHeader(string=False):
     import yt_dlp
     import sys
 
@@ -17,4 +24,13 @@ def printHeader():
         }
     }
 
-    print(json.dumps(versionObj, ensure_ascii=False, default=lambda o: '<not serializable>'), flush=True)
+    if os.path.exists(os.path.join(bundle_dir, 'constants.json')):
+        versionObj['ezytdl-pybridge'] = json.loads(open(os.path.join(bundle_dir, 'constants.json'), 'r').read())
+
+    if string:
+        for key in versionObj.keys():
+            print("" + key + ":")
+            for subkey in versionObj[key].keys():
+                print("    " + subkey + ": " + str(versionObj[key][subkey]))
+    else:
+        print(json.dumps(versionObj, ensure_ascii=False, default=lambda o: '<not serializable>'), flush=True)

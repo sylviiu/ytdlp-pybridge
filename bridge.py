@@ -5,6 +5,11 @@ import sys
 import io
 import builtins
 
+if "--version" in sys.argv:
+    import versionHeader
+    versionHeader.printHeader(True)
+    sys.exit(0)
+
 enc = 'charmap'
 
 #sys.stdout = open(sys.stdout.fileno(), mode='w', encoding=enc, buffering=1)
