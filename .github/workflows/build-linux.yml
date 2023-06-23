@@ -40,4 +40,5 @@ jobs:
             file: ./dist/ezytdl-ytdlp-bridge-linux*
             overwrite: true
             verbose: true
+            draft: true
   

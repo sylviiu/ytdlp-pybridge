@@ -40,3 +40,4 @@ jobs:
           file: ./dist/ezytdl-ytdlp-bridge-win32*
           overwrite: true
           verbose: true
+          draft: true
