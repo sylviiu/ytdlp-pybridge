@@ -5,9 +5,13 @@ import sys
 import io
 import builtins
 
+import versionHeader
+
 if "--version" in sys.argv:
-    import versionHeader
     versionHeader.printHeader(True)
+    sys.exit(0)
+elif "--version-json" in sys.argv:
+    versionHeader.printHeader(False)
     sys.exit(0)
 
 enc = 'charmap'
@@ -21,8 +25,6 @@ new_stderr = io.TextIOWrapper(sys.stderr.detach(), encoding=enc)
 sys.stderr = new_stderr
 
 from c.print import print
-
-import versionHeader
 
 versionHeader.printHeader()
 
