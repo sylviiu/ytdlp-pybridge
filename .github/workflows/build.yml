@@ -76,7 +76,7 @@ jobs:
     needs: release_info
     name: "Linux distributable"
     permissions: write-all
-    uses: ezytdl/pybridge/.github/workflows/build-linux.yml@main
+    uses: sylviiu/ytdlp-pybridge/.github/workflows/build-linux.yml@main
     with:
       release_id: ${{ needs.release_info.outputs.release_id }}
       
@@ -84,7 +84,7 @@ jobs:
     needs: release_info
     name: "MacOS distributable"
     permissions: write-all
-    uses: ezytdl/pybridge/.github/workflows/build-macos.yml@main
+    uses: sylviiu/ytdlp-pybridge/.github/workflows/build-macos.yml@main
     with:
       release_id: ${{ needs.release_info.outputs.release_id }}
       
@@ -92,7 +92,7 @@ jobs:
     needs: release_info
     name: "Windows distributable"
     permissions: write-all
-    uses: ezytdl/pybridge/.github/workflows/build-windows.yml@main
+    uses: sylviiu/ytdlp-pybridge/.github/workflows/build-windows.yml@main
     with:
       release_id: ${{ needs.release_info.outputs.release_id }}
 
