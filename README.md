@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/ezytdl/ezytdl/main/res/img/heading.png" height="128px"/><br>
+  <img src="https://raw.githubusercontent.com/sylviiu/ezytdl/main/res/img/heading.png" height="128px"/><br>
 </h1>
 
 A simple python bridge utilizing yt-dlp's Python API that ezytdl depends on.

@@ -16,7 +16,7 @@ const str = commits.slice(7).split(`\n\ncommit `).map(s => {
 
     if(split[0] && split[1]) {
         const hash = split[0];
-        const hashLink = `[**${hash.slice(0, 7)}**](https://github.com/ezytdl/ezytdl/commit/${hash})`;
+        const hashLink = `[**${hash.slice(0, 7)}**](https://github.com/sylviiu/ezytdl/commit/${hash})`;
         //console.log(hashLink);
     
         const author = split[1].trim().split(`: `).slice(1).join(`:`);
