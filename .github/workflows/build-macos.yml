@@ -38,7 +38,7 @@ jobs:
       - name: Bundle everything in the destination dist-zip/build/bridge-darwin folder into a ZIP with 7zip, and place that in dist/
         run: |
           cd dist-zip/build/bridge-darwin
-          7z a -r ../../dist/bridge-darwin.zip *
+          7z a -r ../../../dist/bridge-darwin.zip *
 
       - name: Upload files to release_id
         uses: xresloader/upload-to-github-release@main
