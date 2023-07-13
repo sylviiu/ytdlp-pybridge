@@ -1,5 +1,6 @@
 .venv/
 dist/
+dist-zip/
 pybridge/
 constants.json
 __pycache__/
