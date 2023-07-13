@@ -29,23 +29,34 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Build app
+      - name: Build bundled file
         run: |
           python constants.py
           pyinstaller bridge.py --add-data "constants.json;." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm --onefile
-          pyinstaller bridge.py --add-data "constants.json;." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32-zip" --clean --noconfirm
 
-      - name: Bundle everything in the destination dist/build/bridge-win32 folder into a ZIP with 7zip, and place that in dist/
-        run: |
-          7z a -r ./dist/bridge-win32.zip ./dist/build/bridge-win32-zip/*
-
-      - name: Upload files to release_id
+      - name: Upload bundled file
         uses: xresloader/upload-to-github-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_id: ${{ inputs.release_id }}
-          file: ./dist/bridge-win32*
+          file: ./dist/bridge-win32.exe
+          overwrite: true
+          verbose: true
+          draft: true
+
+      - name: Build zip
+        run: |
+          pyinstaller bridge.py --add-data "constants.json;." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm
+          7z a -r ./dist/bridge-win32.zip ./dist/bridge-win32/*
+
+      - name: Upload zip
+        uses: xresloader/upload-to-github-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ inputs.release_id }}
+          file: ./dist/bridge-win32.zip
           overwrite: true
           verbose: true
           draft: true
