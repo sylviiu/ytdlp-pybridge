@@ -16,4 +16,4 @@ str = json.dumps({
 }, ensure_ascii=False, default=lambda o: '<not serializable>')
 
 open('dist/build/constants.json', 'w').write(str)
-open('dist/build-zip/constants.json', 'w').write(str)
+open('dist-zip/build/constants.json', 'w').write(str)
