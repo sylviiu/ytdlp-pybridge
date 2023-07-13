@@ -33,7 +33,6 @@ jobs:
           run: |
             python constants.py
             pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-linux" --clean --noconfirm --onefile
-            pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-linux-zip" --clean --noconfirm
 
         - name: Upload bundled file
           uses: xresloader/upload-to-github-release@main
