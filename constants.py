@@ -4,6 +4,7 @@ import time
 import os
 
 os.makedirs('dist/build', exist_ok=True)
+os.makedirs('dist-zip/build', exist_ok=True)
 
 str = json.dumps({
     'Build number': os.environ['GITHUB_RUN_NUMBER'] if 'GITHUB_RUN_NUMBER' in os.environ else '-1',
