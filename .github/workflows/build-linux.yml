@@ -33,7 +33,7 @@ jobs:
           run: |
             python constants.py
             pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-linux" --clean --noconfirm --onefile
-            pyinstaller bridge.py --add-data "constants.json;." --workpath "dist-zip/build" --specpath "dist-zip/build" -y --name "bridge-linux" --clean --noconfirm
+            pyinstaller bridge.py --add-data "constants.json:." --workpath "dist-zip/build" --specpath "dist-zip/build" -y --name "bridge-linux" --clean --noconfirm
   
         - name: Bundle everything in the destination dist-zip/build/bridge-linux folder into a ZIP, and place that in dist/
           run: |
