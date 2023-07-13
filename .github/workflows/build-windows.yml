@@ -33,6 +33,11 @@ jobs:
         run: |
           python constants.py
           pyinstaller bridge.py --add-data "constants.json;." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm --onefile
+          pyinstaller bridge.py --add-data "constants.json;." --workpath "dist-zip/build" --specpath "dist-zip/build" -y --name "bridge-win32" --clean --noconfirm
+
+      - name: Bundle everything in the destination dist-zip/build/bridge-win32 folder into a ZIP with 7zip, and place that in dist/
+        run: |
+          7z a -tzip -r dist/bridge-win32.zip dist-zip/build/bridge-win32
 
       - name: Upload files to release_id
         uses: xresloader/upload-to-github-release@main
