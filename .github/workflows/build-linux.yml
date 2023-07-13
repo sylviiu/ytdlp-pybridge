@@ -33,12 +33,11 @@ jobs:
           run: |
             python constants.py
             pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-linux" --clean --noconfirm --onefile
-            pyinstaller bridge.py --add-data "constants.json:." --workpath "dist-zip/build" --specpath "dist-zip/build" -y --name "bridge-linux" --clean --noconfirm
+            pyinstaller bridge.py --add-data "constants.json:." --workpath "dist-zip/build" --specpath "dist-zip/build" -y --name "bridge-linux-zip" --clean --noconfirm
   
         - name: Bundle everything in the destination dist-zip/build/bridge-linux folder into a ZIP with 7zip, and place that in dist/
           run: |
-            cd dist-zip/build/bridge-linux
-            7z a -r ../../../dist/bridge-linux.zip *
+            7z a -r ./dist/bridge-linux.zip ./dist-zip/build/bridge-linux-zip/*
 
         - name: Upload files to release_id
           uses: xresloader/upload-to-github-release@main
