@@ -37,7 +37,8 @@ jobs:
 
       - name: Bundle everything in the destination dist-zip/build/bridge-win32 folder into a ZIP with 7zip, and place that in dist/
         run: |
-          7z a -tzip -r dist/bridge-win32.zip dist-zip/build/bridge-win32
+          cd dist-zip/build/bridge-win32
+          7z a -r ../../dist/bridge-win32.zip *
 
       - name: Upload files to release_id
         uses: xresloader/upload-to-github-release@main
