@@ -33,6 +33,7 @@ jobs:
         run: |
           python constants.py
           pyinstaller bridge.py --add-data "constants.json;." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm --onefile
+          node test "./dist/bridge-win32.exe"
 
       - name: Upload bundled file
         uses: xresloader/upload-to-github-release@main
@@ -48,6 +49,7 @@ jobs:
       - name: Build zip
         run: |
           pyinstaller bridge.py --add-data "constants.json;." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-win32" --clean --noconfirm
+          node test "./dist/bridge-win32/bridge-win32.exe"
           7z a -r ./dist/bridge-win32.zip ./dist/bridge-win32/*
 
       - name: Upload zip
