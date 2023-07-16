@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} - ${{ github.event_name }} - ${{ github.sha }}
 
 on:
   schedule:
-    - cron: "0 11 * * *" # 6am cst (i'll probably be asleep and have pushed a working change by then)
+    - cron: "0 0 * * 0" # every Sunday at 00:00 UTC
   workflow_dispatch:
     inputs:
       notes:
