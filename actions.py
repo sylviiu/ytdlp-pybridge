@@ -31,28 +31,20 @@ def hook(id, func):
 def isvalidurl(id, data):
     thisHook = hook(id, out)
 
-    def fallback():
-        thisHook.debug(json.dumps({
-            'extractor': None,
-            'url': data['url'],
-            'valid': False
-        }))
-        thisHook.complete()
+    available = []
 
-    if 'url' in data:
+    if 'url' in data and type(data['url']) == str:
         for extractor in extractors:
-            if extractor.suitable(data['url']):
-                thisHook.debug(json.dumps({
-                    'extractor': extractor.IE_NAME,
-                    'url': data['url'],
-                    'valid': True
-                }))
+            if extractor.IE_NAME != 'generic' and extractor.suitable(data['url']) and extractor.IE_NAME not in available:
+                available.append(extractor.IE_NAME)
                 
-                return thisHook.complete()
-                
-        return fallback()
-    else:
-        return fallback()
+    thisHook.debug(json.dumps({
+        'extractors': available,
+        'url': data['url'],
+        'valid': True if len(available) > 0 else False
+    }))
+
+    return thisHook.complete()
 
 def kill(hook, data):
     if(hook is not None and hasattr(hook, 'kill')):
