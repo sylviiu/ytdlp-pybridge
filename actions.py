@@ -1,10 +1,14 @@
 import yt_dlp
+import json
 from c.writeStringWrapper import writeStringWrapper
 from c.killableThread import killableThread
 from c.print import print
+from c.out import out
 
 import c.wsHook as wsHook
 from c.progressHook import progressHook
+
+extractors = yt_dlp.extractor.gen_extractors()
 
 def parseOptions(opt, hook):
     parsedOptions = yt_dlp.parse_options(opt)
@@ -23,6 +27,32 @@ def parseOptions(opt, hook):
 def hook(id, func):
     print("Creating hook for id: " + id)
     return wsHook.hook(id, func)
+
+def isvalidurl(id, data):
+    thisHook = hook(id, out)
+
+    def fallback():
+        thisHook.debug(json.dumps({
+            'extractor': None,
+            'url': data['url'],
+            'valid': False
+        }))
+        thisHook.complete()
+
+    if 'url' in data:
+        for extractor in extractors:
+            if extractor.suitable(data['url']):
+                thisHook.debug(json.dumps({
+                    'extractor': extractor.IE_NAME,
+                    'url': data['url'],
+                    'valid': True
+                }))
+                
+                return thisHook.complete()
+                
+        return fallback()
+    else:
+        return fallback()
 
 def kill(hook, data):
     if(hook is not None and hasattr(hook, 'kill')):

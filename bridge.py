@@ -2,8 +2,7 @@ import json
 import threading
 import actions
 import sys
-import io
-import builtins
+from c.out import out
 
 import versionHeader
 
@@ -15,14 +14,6 @@ elif "--version-json" in sys.argv:
     sys.exit(0)
 
 enc = 'charmap'
-
-#sys.stdout = open(sys.stdout.fileno(), mode='w', encoding=enc, buffering=1)
-new_stdout = io.TextIOWrapper(sys.stdout.detach(), encoding=enc)
-sys.stdout = new_stdout
-
-#sys.stderr = open(sys.stderr.fileno(), mode='w', encoding=enc, buffering=1)
-new_stderr = io.TextIOWrapper(sys.stderr.detach(), encoding=enc)
-sys.stderr = new_stderr
 
 from c.print import print
 
@@ -44,26 +35,13 @@ def recv(message):
         print("Target ID: " + targetId)
 
         if(hasattr(actions, data['type'])):
-            threading.Thread(target=getattr(actions, data['type'])(hooks[targetId] if targetId in hooks else None, data), name="ACTION THREAD / " + targetId, daemon=True).start()
+            threading.Thread(target=getattr(actions, data['type'])(hooks[targetId] if targetId in hooks else targetId, data), name="ACTION THREAD / " + targetId, daemon=True).start()
         else:
             print("Unknown message type: " + data['type'])
     else:
         if data['id'] in hooks:
             hook = hooks[data['id']]
-        else:
-            def out(data):
-                if hasattr(data, 'decode'):
-                    data = data.decode(enc, 'replace')
-                
-                if(type(data) != 'str'):
-                    data = str(data)
-                
-                data = data.encode(enc, 'replace').decode(enc, 'replace')
-                
-                sys.stdout.write(data + '\n\r')
-                #sys.stdout.write((data.encode('utf-8', 'replace') if hasattr(data, 'encode') else data + '\n\r').decode('utf-8', 'replace'))
-                sys.stdout.flush()
-            
+        else:            
             hook = actions.hook(data['id'], out)
             hooks[data['id']] = hook
         
