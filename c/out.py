@@ -1,7 +1,7 @@
 import sys
 import io
 
-enc = 'charmap'
+enc = 'utf-8'
 
 #sys.stdout = open(sys.stdout.fileno(), mode='w', encoding=enc, buffering=1)
 new_stdout = io.TextIOWrapper(sys.stdout.detach(), encoding=enc)
