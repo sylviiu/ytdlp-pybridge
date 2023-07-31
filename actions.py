@@ -2,6 +2,7 @@ import yt_dlp
 import json
 from c.writeStringWrapper import writeStringWrapper
 from c.killableThread import killableThread
+from c.cookiesBinding import cookiesBinding
 from c.print import print
 from c.out import out
 
@@ -11,11 +12,20 @@ from c.progressHook import progressHook
 extractors = yt_dlp.extractor.gen_extractors()
 
 def parseOptions(opt, hook):
+    cookies = None
+
+    if '--cookies' in opt:
+        cookiesIndex = opt.index('--cookies')
+        cookies = opt[cookiesIndex + 1]
+        del opt[cookiesIndex]
+        del opt[cookiesIndex]
+
     parsedOptions = yt_dlp.parse_options(opt)
 
     returnOptions = {
         'options': parsedOptions[3],
-        'resources': parsedOptions[2]
+        'resources': parsedOptions[2],
+        'cookies': cookies
     }
 
     returnOptions['options']['progress_hooks'] = [ progressHook(hook) ]
@@ -56,6 +66,8 @@ def kill(hook, data):
 def exec(hook, data, complete):
     parsed = parseOptions(data['args'], hook)
 
+    print('parsed cookie', parsed['cookies'])
+
     write_string = writeStringWrapper(hook)
 
     killed = False
@@ -67,16 +79,40 @@ def exec(hook, data, complete):
     hook.setKill(killDownload)
 
     with yt_dlp.YoutubeDL(parsed['options']) as ytdl:
+        print("cookiejar 1", ytdl.cookiejar)
+
+        if parsed['cookies'] is not None:
+            c = cookiesBinding(parsed['cookies'])
+
+            print("cookiejar 1.25", c.cookies)
+
+            ytdlCookieJar = yt_dlp.cookies.YoutubeDLCookieJar()
+            ytdlCookieJar._really_load(c, filename=None, ignore_discard=False, ignore_expires=False)
+
+            print("cookiejar 1.5", ytdlCookieJar)
+
+            for cookie in ytdlCookieJar:
+                # Treat `expires=0` cookies as session cookies
+                if cookie.expires == 0:
+                    cookie.expires = None
+                    cookie.discard = True
+            
+            ytdl.cookiejar = ytdlCookieJar
+
         ytdl._write_string = write_string
         ytdl.write_string = write_string
         ytdl.write_debug = write_string
 
         def execDownload():
+            print("cookiejar 1/2", ytdl.cookiejar)
+
             nonlocal killed
             if killed == True:
+                print("cookiejar 2", ytdl.cookiejar)
                 return complete()
             else:
                 ytdl.download(parsed['resources'])
+                print("cookiejar 3", ytdl.cookiejar)
                 complete()
 
         t = killableThread(target=execDownload, name="YTDL THREAD", daemon=True)
