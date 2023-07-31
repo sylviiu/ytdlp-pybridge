@@ -14,8 +14,8 @@ extractors = yt_dlp.extractor.gen_extractors()
 def parseOptions(opt, hook):
     cookies = None
 
-    if '--cookies' in opt:
-        cookiesIndex = opt.index('--cookies')
+    if '--cookiestxt' in opt:
+        cookiesIndex = opt.index('--cookiestxt')
         cookies = opt[cookiesIndex + 1]
         del opt[cookiesIndex]
         del opt[cookiesIndex]
