@@ -1,10 +1,4 @@
-import json
-import threading
-import actions
 import sys
-import yt_dlp
-from c.out import out
-
 import versionHeader
 
 if len(sys.argv) == 2 and sys.argv[1] == "--version":
@@ -14,8 +8,14 @@ elif len(sys.argv) == 2 and sys.argv[1] == "--version-json":
     versionHeader.printHeader(False)
     sys.exit(0)
 elif len(sys.argv) > 1:
+    import yt_dlp
     yt_dlp.main()
 else:
+    import json
+    import threading
+    import actions
+    from c.out import out
+    
     versionHeader.printHeader()
     
     from c.print import print
