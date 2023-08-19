@@ -26,6 +26,7 @@ class writeStringWrapper:
             else:
                 logFunc = 'debug'
 
+        """
         enc, buffer = None, out
         if 'b' in getattr(out, 'mode', ''):
             enc = encoding or yt_dlp.preferredencoding()
@@ -35,3 +36,6 @@ class writeStringWrapper:
 
             output = s.encode(enc, 'replace')
             getattr(self.wsHook, logFunc)(json.dumps(output, ensure_ascii=False, default=lambda o: '<not serializable>') if type(output) is dict else output.decode(enc, 'replace') if hasattr(output, 'decode') else output)
+        """
+
+        getattr(self.wsHook, logFunc)(json.dumps(s, ensure_ascii=False, default=lambda o: '<not serializable>') if type(s) is dict else s)
