@@ -14,6 +14,7 @@ else:
     import json
     import threading
     import actions
+    import io
     from c.out import out
     
     versionHeader.printHeader()
@@ -60,7 +61,7 @@ else:
 
     print("Bridge ready", flush=True)
 
-    for line in sys.stdin:
+    for line in io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8'):
         try:
             recv(line)
         except:
