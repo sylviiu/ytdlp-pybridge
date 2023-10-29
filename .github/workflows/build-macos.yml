@@ -53,7 +53,9 @@ jobs:
           pyinstaller bridge.py --add-data "constants.json:." --workpath "dist/build" --specpath "dist/build" -y --name "bridge-darwin" --clean --noconfirm
           chmod +x ./dist/bridge-darwin/bridge-darwin
           node test "./dist/bridge-darwin/bridge-darwin"
-          7z a -r ./dist/bridge-darwin.zip ./dist/bridge-darwin/*
+          cd ./dist/bridge-darwin/
+          zip ../bridge-darwin.zip *
+          cd ../../
 
       - name: Upload zip
         uses: xresloader/upload-to-github-release@main
