@@ -54,7 +54,7 @@ jobs:
           chmod +x ./dist/bridge-darwin/bridge-darwin
           node test "./dist/bridge-darwin/bridge-darwin"
           cd ./dist/bridge-darwin/
-          zip ../bridge-darwin.zip *
+          zip -r ../bridge-darwin.zip *
           cd ../../
 
       - name: Upload zip
