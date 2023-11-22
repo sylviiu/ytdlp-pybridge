@@ -25,7 +25,7 @@ def printHeader(string=False):
     }
 
     if os.path.exists(os.path.join(bundle_dir, 'constants.json')):
-        versionObj['ezytdl-pybridge'] = json.loads(open(os.path.join(bundle_dir, 'constants.json'), 'r').read())
+        versionObj['ezytdl-pybridge'] = json.loads(open(os.path.join(bundle_dir, 'constants.json'), 'r', encoding='utf-8').read())
 
     if string:
         for key in versionObj.keys():
