@@ -11,7 +11,7 @@ str = json.dumps({
     'Build arch': os.environ['RUNNER_ARCH'] if 'RUNNER_ARCH' in os.environ else 'unknown',
     'Python': sys.version.split(' ')[0],
     'Built': int(time.time() * 1000),
-    'Supported sites': json.loads(subprocess.check_output(['node', 'devscripts/generateSupportedSites']).decode('utf-8'))
+    'Supported sites': json.loads(subprocess.check_output(['node', os.path.join('devscripts', 'generateSupportedSites.js')]).decode('utf-8'))
 }, ensure_ascii=False, default=lambda o: '<not serializable>')
 
 open('dist/build/constants.json', 'w').write(str)
