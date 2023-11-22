@@ -14,4 +14,4 @@ str = json.dumps({
     'Supported sites': json.loads(subprocess.check_output(['node', os.path.join('devscripts', 'generateSupportedSites.js')]).decode('utf-8'))
 }, ensure_ascii=False, default=lambda o: '<not serializable>')
 
-open('dist/build/constants.json', 'w').write(str)
+open('dist/build/constants.json', 'w', encoding='utf-8').write(str)
