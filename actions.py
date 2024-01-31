@@ -33,7 +33,7 @@ def parseOptions(opt, hook):
 
     returnOptions['options']['progress_hooks'] = [ progressHook(hook) ]
     returnOptions['options']['progress_with_newline'] = True
-    returnOptions['options']['logger'] = Logger(hook, (opt.__contains__('--verbose') or opt.__contains__('-v')))
+    returnOptions['options']['logger'] = Logger(hook, ((opt.__contains__('--quiet') or opt.__contains__('-q')) and (opt.__contains__('--verbose') or opt.__contains__('-v'))))
     #returnOptions['options']['no_color'] = True
 
     return returnOptions
