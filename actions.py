@@ -1,7 +1,6 @@
 import yt_dlp
 import json
 from io import StringIO
-from c.writeStringWrapper import writeStringWrapper
 from c.killableThread import killableThread
 from c.logger import Logger
 from c.print import print
@@ -71,8 +70,6 @@ def kill(hook, data):
 def exec(hook, data, complete):
     parsed = parseOptions(data['args'], hook)
 
-    #write_string = writeStringWrapper(hook)
-
     killed = False
 
     def killDownload():
@@ -82,9 +79,6 @@ def exec(hook, data, complete):
     hook.setKill(killDownload)
 
     with yt_dlp.YoutubeDL(parsed['options']) as ytdl:
-        #ytdl._write_string = write_string
-        #ytdl.write_string = write_string
-        #ytdl.write_debug = write_string
 
         def execDownload():
             nonlocal killed
