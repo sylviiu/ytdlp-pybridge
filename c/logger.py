@@ -1,5 +1,4 @@
 import re
-from .print import print
 
 class Logger:
     def __init__(self, wsHook, debugsToError=False):
@@ -9,7 +8,7 @@ class Logger:
     def debug(self, msg):
         # https://github.com/yt-dlp/yt-dlp#adding-logger-and-progress-hook - debugs and infos are passed through "debug," distinguishable by the "[debug] " prefix
         if re.search("^\[[a-z]+\]\s", msg):
-            # pybridge previously sent info & debug msgs thru error (presumably yt-dlp's default logger), so we'll do the same here
+            # info & debug msgs are sent thru error if -q and -v were passed, so we'll do the same here
             if self.debugsToError:
                 self.wsHook.error(msg)
         else:
