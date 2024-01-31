@@ -3,6 +3,7 @@ import json
 from io import StringIO
 from c.writeStringWrapper import writeStringWrapper
 from c.killableThread import killableThread
+from c.logger import Logger
 from c.print import print
 from c.out import out
 
@@ -33,6 +34,7 @@ def parseOptions(opt, hook):
 
     returnOptions['options']['progress_hooks'] = [ progressHook(hook) ]
     returnOptions['options']['progress_with_newline'] = True
+    returnOptions['options']['logger'] = Logger(hook)
     #returnOptions['options']['no_color'] = True
 
     return returnOptions
@@ -69,7 +71,7 @@ def kill(hook, data):
 def exec(hook, data, complete):
     parsed = parseOptions(data['args'], hook)
 
-    write_string = writeStringWrapper(hook)
+    #write_string = writeStringWrapper(hook)
 
     killed = False
 
@@ -80,9 +82,9 @@ def exec(hook, data, complete):
     hook.setKill(killDownload)
 
     with yt_dlp.YoutubeDL(parsed['options']) as ytdl:
-        ytdl._write_string = write_string
-        ytdl.write_string = write_string
-        ytdl.write_debug = write_string
+        #ytdl._write_string = write_string
+        #ytdl.write_string = write_string
+        #ytdl.write_debug = write_string
 
         def execDownload():
             nonlocal killed
