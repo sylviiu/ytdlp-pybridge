@@ -33,7 +33,7 @@ def parseOptions(opt, hook):
 
     returnOptions['options']['progress_hooks'] = [ progressHook(hook) ]
     returnOptions['options']['progress_with_newline'] = True
-    returnOptions['options']['logger'] = Logger(hook)
+    returnOptions['options']['logger'] = Logger(hook, (opt.__contains__('--verbose') or opt.__contains__('-v')))
     #returnOptions['options']['no_color'] = True
 
     return returnOptions
@@ -79,7 +79,6 @@ def exec(hook, data, complete):
     hook.setKill(killDownload)
 
     with yt_dlp.YoutubeDL(parsed['options']) as ytdl:
-
         def execDownload():
             nonlocal killed
             if killed == True:
