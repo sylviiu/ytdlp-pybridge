@@ -27,6 +27,9 @@ def printHeader(string=False):
     if os.path.exists(os.path.join(bundle_dir, 'constants.json')):
         versionObj['ezytdl-pybridge'] = json.loads(open(os.path.join(bundle_dir, 'constants.json'), 'r', encoding='utf-8').read())
 
+        if not 'PYBRIDGE_HEADER_SUPPORTED_SITES' in os.environ:
+            del versionObj['ezytdl-pybridge']['Supported sites']
+
     if string:
         for key in versionObj.keys():
             print("" + key + ":")
